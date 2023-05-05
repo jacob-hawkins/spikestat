@@ -1,0 +1,13 @@
+.flex-align {
+    display: flex;
+    align-items: center;
+}
+
+.profile-pic {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.bold {
+    font-weight: bold;
+}
