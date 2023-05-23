@@ -28,6 +28,8 @@ export default function Rightbar({profile}) {
     }
     
     const ProfileRightbar = () => {
+        const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+        
         return (
             <>
                 <h4 className="rightbarTitle">User information</h4>
@@ -52,27 +54,27 @@ export default function Rightbar({profile}) {
                 <h4 className="rightbarTitle">User friends</h4>
                 <div className="rightbarFollowing">
                     <div className="rightbarFollower flex-align">
-                        <img className="rightbarFollowerImg" src="/assets/person/1.jpeg" alt="" />
+                        <img className="rightbarFollowerImg" src={`${PF}person/1.jpeg`} alt="" />
                         <span className="rightbarFollowerName">John Carter</span>
                     </div>
 
                     <div className="rightbarFollower flex-align">
-                        <img className="rightbarFollowerImg" src="/assets/person/1.jpeg" alt="" />
+                        <img className="rightbarFollowerImg" src={`${PF}person/1.jpeg`} alt="" />
                         <span className="rightbarFollowerName">John Carter</span>
                     </div>
 
                     <div className="rightbarFollower flex-align">
-                        <img className="rightbarFollowerImg" src="/assets/person/1.jpeg" alt="" />
+                        <img className="rightbarFollowerImg" src={`${PF}person/1.jpeg`} alt="" />
                         <span className="rightbarFollowerName">John Carter</span>
                     </div>
 
                     <div className="rightbarFollower flex-align">
-                        <img className="rightbarFollowerImg" src="/assets/person/1.jpeg" alt="" />
+                        <img className="rightbarFollowerImg" src={`${PF}person/1.jpeg`} alt="" />
                         <span className="rightbarFollowerName">John Carter</span>
                     </div>
 
                     <div className="rightbarFollower flex-align">
-                        <img className="rightbarFollowerImg" src="/assets/person/1.jpeg" alt="" />
+                        <img className="rightbarFollowerImg" src={`${PF}person/1.jpeg`} alt="" />
                         <span className="rightbarFollowerName">John Carter</span>
                     </div>
                 </div>
