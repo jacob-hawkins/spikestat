@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
 import { MoreVert } from '@mui/icons-material';
-import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { format } from 'timeago.js';
+import axios from 'axios';
 import './post.css';
 
 export default function Post({ post }) {
@@ -27,11 +28,13 @@ export default function Post({ post }) {
             <div className='postWrapper'>
                 <div className='postTop flex-align'>
                     <div className='postTopLeft flex-align'>
-                        <img
-                            className='postProfileImg profile-pic'
-                            src={user.profilePicture || PF + 'person/noAvatar.png'}
-                            alt=''
-                        />
+                        <Link to={`profile/${user.username}`}>
+                            <img
+                                className='postProfileImg profile-pic'
+                                src={user.profilePicture || PF + 'person/noAvatar.png'}
+                                alt=''
+                            />
+                        </Link>
 
                         <span className='postUsername'>{user.username}</span>
 
