@@ -9,6 +9,8 @@ const INITIAL_STATE = {
         profilePicture: 'person/1.jpeg',
         coverPicture: '',
         isAdmin: false,
+        followers: [],
+        following: [],
     },
     isFetching: false,
     error: false,
