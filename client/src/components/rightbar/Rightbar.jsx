@@ -11,7 +11,7 @@ export default function Rightbar({ user }) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const [friends, setFriends] = useState([]);
     const { user: currentUser, dispatch } = useContext(AuthContext);
-    const [followed, setFollowed] = useState(currentUser.following.includes(user?._id));
+    const followed = currentUser.following.includes(user?._id);
 
     useEffect(() => {
         const getFriends = async () => {
@@ -38,7 +38,7 @@ export default function Rightbar({ user }) {
             console.log(err);
         }
 
-        setFollowed(!followed);
+        followed = !followed;
     };
 
     const HomeRightbar = () => {
@@ -69,42 +69,58 @@ export default function Rightbar({ user }) {
     const ProfileRightbar = () => {
         return (
             <>
-                {user.username !== currentUser.username && (
-                    <button onClick={followHandler} className='rightbarFollowButton flex-align'>
-                        {followed ? 'Unfollow' : 'Follow'}
-                        {followed ? <Remove /> : <Add />}
-                    </button>
-                )}
-                <h4 className='rightbarTitle'>User information</h4>
+                <div className='profileCover'>
+                    <img
+                        className='profileCoverImg'
+                        src={user.coverPicture ? PF + user.coverPicture : PF + 'person/noCover.png'}
+                        alt=''
+                    />
+                    <img
+                        className='profileUserImg profile-pic'
+                        src={
+                            user.profilePicture
+                                ? PF + user.profilePicture
+                                : PF + 'person/noAvatar.png'
+                        }
+                        alt=''
+                    />
+
+                    <div className='profileInfo'>
+                        <h4 className='profileInfoName'>{user.username}</h4>
+                        <span className='profileInfoDesc'>{user.desc}</span>
+                    </div>
+
+                    {user.username !== currentUser.username && (
+                        <button onClick={followHandler} className='rightbarFollowButton flex-align'>
+                            {followed ? <Remove /> : <Add />}
+                            {followed ? 'UNFOLLOW' : 'FOLLOW'}
+                        </button>
+                    )}
+                </div>
+
                 <div className='rightbarInfo'>
                     <div className='rightbarInfoItem'>
-                        <span className='rightbarInfoKey'>City:</span>
-                        <span className='rightbarInfoValue'>{user.city}</span>
+                        <span className='rightbarInfoKey'>Games:</span>
+                        <span className='rightbarInfoValue'>{user.gamesPlayed}</span>
                     </div>
 
                     <div className='rightbarInfoItem'>
-                        <span className='rightbarInfoKey'>From:</span>
-                        <span className='rightbarInfoValue'>{user.from}</span>
+                        <span className='rightbarInfoKey'>Wins:</span>
+                        <span className='rightbarInfoValue'>{user.wins}</span>
                     </div>
 
                     <div className='rightbarInfoItem'>
-                        <span className='rightbarInfoKey'>Relationship:</span>
-                        <span className='rightbarInfoValue'>
-                            {user.relationship === 1
-                                ? 'Single'
-                                : user.relationship === 2
-                                ? 'Married'
-                                : '-'}
-                        </span>
+                        <span className='rightbarInfoKey'>Loses:</span>
+                        <span className='rightbarInfoValue'>{user.gamesPlayed - user.wins}</span>
                     </div>
                 </div>
 
-                <h4 className='rightbarTitle'>User friends</h4>
+                <h4 className='rightbarTitle'>{user.username}'s friends</h4>
                 <div className='rightbarFollowing'>
                     {friends.map((friend) => (
                         <Link
                             to={'/profile/' + friend.username}
-                            style={{ textDecoration: 'none', color: 'black' }}>
+                            style={{ textDecoration: 'none', color: 'white' }}>
                             <div className='rightbarFollower flex-align'>
                                 <img
                                     className='rightbarFollowerImg'
