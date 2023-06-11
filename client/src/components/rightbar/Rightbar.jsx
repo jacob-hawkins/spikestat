@@ -8,19 +8,17 @@ export default function Rightbar({ user }) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const [friends, setFriends] = useState([]);
 
-    console.log(user);
-
-    // useEffect(() => {
-    // const getFriends = async () => {
-    //     try {
-    //         // const friendList = await axios.get('/users/friends/' + user._id);
-    //         // setFriends(friendList.data);
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // };
-    // getFriends();
-    // }, [user._id]);
+    useEffect(() => {
+        const getFriends = async () => {
+            try {
+                const friendList = await axios.get('/users/friends/' + user._id);
+                setFriends(friendList.data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        getFriends();
+    }, [user._id]);
 
     const HomeRightbar = () => {
         return (
@@ -76,7 +74,7 @@ export default function Rightbar({ user }) {
 
                 <h4 className='rightbarTitle'>User friends</h4>
                 <div className='rightbarFollowing'>
-                    {/* {friends.map((friend) => (
+                    {friends.map((friend) => (
                         <div className='rightbarFollower flex-align'>
                             <img
                                 className='rightbarFollowerImg'
@@ -89,7 +87,7 @@ export default function Rightbar({ user }) {
                             />
                             <span className='rightbarFollowerName'>{friend.username}</span>
                         </div>
-                    ))} */}
+                    ))}
                 </div>
             </>
         );
