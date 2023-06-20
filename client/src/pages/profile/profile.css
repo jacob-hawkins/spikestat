@@ -5,6 +5,7 @@
 .profileRight {
     flex: 2;
     margin: 10px;
+    margin-right: 20px;
     background-color: var(--objectColor);
     border-radius: 25px;
     height: 700px;
