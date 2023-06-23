@@ -21,12 +21,12 @@ export default function Profile() {
         <>
             <Topbar />
             <div className='profile'>
-                <div className='profileLeft'>
-                    <Feed username={username} />
-                </div>
-
                 <div className='profileRight'>
                     <Rightbar user={user} />
+                </div>
+
+                <div className='profileLeft'>
+                    <Feed username={username} />
                 </div>
             </div>
         </>

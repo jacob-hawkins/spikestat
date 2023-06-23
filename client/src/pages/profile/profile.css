@@ -1,19 +1,21 @@
 .profile {
     display: flex;
+    margin-top: 20px;
 }
 
 .profileRight {
     flex: 2;
-    margin: 10px;
-    margin-right: 20px;
-    background-color: var(--objectColor);
-    border-radius: 25px;
+    margin: 20px 20px 10px 50px;
+    /* margin-right: 20px; */
+    /* background-color: var(--objectColor); */
+    /* border-radius: 25px; */
     height: 700px;
     overflow: auto;
-    box-shadow: var(--boxShadow);
+    /* box-shadow: var(--boxShadow); */
 }
 
 .profileLeft {
     flex: 3;
     display: flex;
+    margin-right: 20px;
 }

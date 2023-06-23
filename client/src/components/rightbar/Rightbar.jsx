@@ -4,8 +4,12 @@ import { Add, Remove } from '@mui/icons-material';
 import { Users } from '../../dummyData';
 import { Link } from 'react-router-dom';
 import Online from '../online/Online';
+import { Chart as ChartJS, ArcElement, Tooltip } from 'chart.js';
+import { Doughnut } from 'react-chartjs-2';
 import axios from 'axios';
 import './rightbar.css';
+
+ChartJS.register(ArcElement);
 
 export default function Rightbar({ user }) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -67,6 +71,73 @@ export default function Rightbar({ user }) {
     };
 
     const ProfileRightbar = () => {
+        let gamesPlayed, wins, losses;
+
+        if (user.gamesPlayed !== 0) {
+            gamesPlayed = {
+                datasets: [
+                    {
+                        data: [user.wins, user.gamesPlayed - user.wins],
+                        backgroundColor: ['rgba(0, 211, 107, 1)', 'rgba(231, 74, 74, 1)'],
+                        borderWidth: 0,
+                    },
+                ],
+            };
+
+            wins = {
+                datasets: [
+                    {
+                        data: [user.gamesPlayed - user.wins, user.wins],
+                        backgroundColor: ['rgba(0, 211, 107, 0.3)', 'rgba(0, 211, 107, 1)'],
+                        borderWidth: 0,
+                    },
+                ],
+            };
+
+            losses = {
+                datasets: [
+                    {
+                        data: [
+                            user.gamesPlayed - (user.gamesPlayed - user.wins),
+                            user.gamesPlayed - user.wins,
+                        ],
+                        backgroundColor: ['rgba(231, 74, 74, 0.3)', 'rgba(231, 74, 74, 1)'],
+                        borderWidth: 0,
+                    },
+                ],
+            };
+        } else {
+            gamesPlayed = {
+                datasets: [
+                    {
+                        data: [1],
+                        backgroundColor: ['rgba(80, 80, 80, 0.3)'],
+                        borderWidth: 0,
+                    },
+                ],
+            };
+
+            wins = {
+                datasets: [
+                    {
+                        data: [1],
+                        backgroundColor: ['rgba(0, 211, 107, 0.3)'],
+                        borderWidth: 0,
+                    },
+                ],
+            };
+
+            losses = {
+                datasets: [
+                    {
+                        data: [1],
+                        backgroundColor: ['rgba(231, 74, 74, 0.3)'],
+                        borderWidth: 0,
+                    },
+                ],
+            };
+        }
+
         return (
             <>
                 <div className='profileCover'>
@@ -100,13 +171,33 @@ export default function Rightbar({ user }) {
 
                 <div className='rightbarInfo'>
                     <div className='rightbarInfoItem'>
-                        <span className='rightbarInfoKey'>Games:</span>
-                        <span className='rightbarInfoValue'>{user.gamesPlayed}</span>
+                        <div className='sideChart'>
+                            <Doughnut data={wins} plugins={Tooltip} />
+                        </div>
                     </div>
 
                     <div className='rightbarInfoItem'>
+                        <div className='doughnutChart'>
+                            <Doughnut data={gamesPlayed} plugins={Tooltip} />
+                        </div>
+                    </div>
+
+                    <div className='rightbarInfoItem'>
+                        <div className='sideChart'>
+                            <Doughnut data={losses} plugins={Tooltip} />
+                        </div>
+                    </div>
+                </div>
+
+                <div className='rightbarInfo'>
+                    <div className='rightbarInfoItem'>
                         <span className='rightbarInfoKey'>Wins:</span>
                         <span className='rightbarInfoValue'>{user.wins}</span>
+                    </div>
+
+                    <div className='rightbarInfoItem'>
+                        <span className='rightbarInfoKey'>Games:</span>
+                        <span className='rightbarInfoValue'>{user.gamesPlayed}</span>
                     </div>
 
                     <div className='rightbarInfoItem'>
