@@ -1,14 +1,15 @@
-import { EmojiEmotions, Label, PermMedia, Room } from '@mui/icons-material';
+import { AddBox, Room, Send } from '@mui/icons-material';
 import { AuthContext } from '../../context/AuthContext';
 import { useContext, useRef, useState } from 'react';
-import './share.css';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 import axios from 'axios';
+import './share.css';
 
 export default function Share() {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const { user } = useContext(AuthContext);
     const desc = useRef();
-    const [file, setFile] = useState(null);
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -47,37 +48,26 @@ export default function Share() {
 
                 <form className='shareBottom flex-align' onSubmit={submitHandler}>
                     <div className='shareOptions'>
-                        <label htmlFor='file' className='shareOption flex-align'>
-                            <PermMedia htmlColor='tomato' className='shareIcon' />
-                            <span className='shareOptionText'>Photo or Video</span>
-                            <input
-                                type='file'
-                                id='file'
-                                accept='.png, .jpeg, .jpg'
-                                onChange={(e) => setFile(e.target.files[0])}
-                                style={{ display: 'none' }}
-                            />
-                        </label>
+                        <Tooltip title='Create a Game'>
+                            <IconButton className='flex-align'>
+                                <AddBox style={{ fontSize: 30 }} />
+                            </IconButton>
+                        </Tooltip>
 
-                        <div className='shareOption flex-align'>
-                            <Label htmlColor='blue' className='shareIcon' />
-                            <span className='shareOptionText'>Tag</span>
-                        </div>
-
-                        <div className='shareOption flex-align'>
-                            <Room htmlColor='green' className='shareIcon' />
-                            <span className='shareOptionText'>Location</span>
-                        </div>
-
-                        <div className='shareOption flex-align'>
-                            <EmojiEmotions htmlColor='goldenrod' className='shareIcon' />
-                            <span className='shareOptionText'>Feelings</span>
-                        </div>
+                        <Tooltip title='Add Location'>
+                            <IconButton className='flex-align'>
+                                <Room style={{ fontSize: 30 }} />
+                            </IconButton>
+                        </Tooltip>
                     </div>
 
-                    <button className='shareButton' type='submit'>
-                        Share
-                    </button>
+                    <div className='shareButton'>
+                        <Tooltip title='Post'>
+                            <IconButton type='submit' className='flex-align'>
+                                <Send style={{ fontSize: 30 }} />
+                            </IconButton>
+                        </Tooltip>
+                    </div>
                 </form>
             </div>
         </div>
