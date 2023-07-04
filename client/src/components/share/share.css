@@ -37,12 +37,28 @@
 
 .shareOptions {
     display: flex;
-    margin-left: 20px;
+    align-items: center;
+    margin-left: 10px;
+    height: 25px;
 }
 
 .shareOption {
     margin: 15px;
     cursor: pointer;
+}
+
+#shareLocationInput {
+    background: none;
+    border: 1px solid var(--textColor);
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-size: 15px;
+    width: 175px;
+    height: 25px;
+}
+
+#shareLocationInput:focus {
+    outline: none;
 }
 
 .shareButton {
