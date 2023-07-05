@@ -1,7 +1,8 @@
+import { Alert, AlertTitle, Collapse, IconButton } from '@mui/material';
 import { AddBox, Room, Send } from '@mui/icons-material';
 import { AuthContext } from '../../context/AuthContext';
 import { useContext, useRef, useState } from 'react';
-import IconButton from '@mui/material/IconButton';
+import { Close } from '@mui/icons-material';
 import Tooltip from '@mui/material/Tooltip';
 import axios from 'axios';
 import './share.css';
@@ -11,11 +12,13 @@ export default function Share() {
     const { user } = useContext(AuthContext);
     const desc = useRef();
     const location = useRef();
-    let open = false;
+    let locationOpen = false;
     let disabled = true;
+    const [open, setOpen] = useState(true);
 
     const submitHandler = async (e) => {
         e.preventDefault();
+
         const newPost = {
             userId: user._id,
             desc: desc.current.value,
@@ -31,14 +34,14 @@ export default function Share() {
     function showLocation() {
         let location = document.getElementById('shareLocationInput');
 
-        if (!open) {
+        if (!locationOpen) {
             location.style.visibility = 'visible';
             location.style.width = '175px';
-            open = true;
+            locationOpen = true;
         } else {
             location.style.width = '0px';
             location.style.visibility = 'hidden';
-            open = false;
+            locationOpen = false;
         }
     }
 
@@ -101,6 +104,26 @@ export default function Share() {
                     </div>
                 </form>
             </div>
+
+            <Collapse in={open}>
+                <Alert
+                    id='postAlertSuccess'
+                    action={
+                        <IconButton
+                            aria-label='close'
+                            color='inherit'
+                            size='small'
+                            onClick={() => {
+                                setOpen(false);
+                            }}>
+                            <Close fontSize='inherit' />
+                        </IconButton>
+                    }
+                    sx={{ mb: 2 }}>
+                    <AlertTitle>Success</AlertTitle>
+                    Your post was successfully posted!
+                </Alert>
+            </Collapse>
         </div>
     );
 }

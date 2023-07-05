@@ -1,13 +1,13 @@
 .share {
     width: 100%;
-    height: 170px;
-    border-radius: 10px;
-    box-shadow: var(--boxShadow);
-    background-color: var(--objectColor);
 }
 
 .shareWrapper {
     padding: 10px;
+    height: 160px;
+    border-radius: 10px;
+    box-shadow: var(--boxShadow);
+    background-color: var(--objectColor);
 }
 
 .shareProfileImg {
@@ -65,4 +65,11 @@
 
 .shareButtonWrapper {
     margin-right: 10px;
+}
+
+#postAlertSuccess {
+    background-color: rgba(118, 254, 148, 0.3);
+    border: 1px solid rgba(118, 254, 148, 0.8);
+    border-radius: 10px;
+    margin-bottom: 0px;
 }
