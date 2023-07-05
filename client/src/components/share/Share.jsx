@@ -1,8 +1,7 @@
 import { Alert, AlertTitle, Collapse, IconButton } from '@mui/material';
-import { AddBox, Room, Send } from '@mui/icons-material';
+import { AddBox, Event, Room, Send, Close } from '@mui/icons-material';
 import { AuthContext } from '../../context/AuthContext';
 import { useContext, useRef, useState } from 'react';
-import { Close } from '@mui/icons-material';
 import Tooltip from '@mui/material/Tooltip';
 import axios from 'axios';
 import './share.css';
@@ -45,6 +44,12 @@ export default function Share() {
         }
     }
 
+    // probably should do in feed
+    function checkRecentPost() {
+        // if most recent post was posted with in 5 seconds ago
+        // show alert
+    }
+
     return (
         <div className='share'>
             <div className='shareWrapper'>
@@ -77,7 +82,15 @@ export default function Share() {
                             </span>
                         </Tooltip>
 
-                        <Tooltip title='Share a Location'>
+                        <Tooltip title='Schedule a Game'>
+                            <span>
+                                <IconButton>
+                                    <Event style={{ fontSize: 30 }} />
+                                </IconButton>
+                            </span>
+                        </Tooltip>
+
+                        <Tooltip title='Tag a Location'>
                             <span>
                                 <IconButton onClick={showLocation}>
                                     <Room style={{ fontSize: 30 }} />

@@ -1,6 +1,6 @@
 import { AuthContext } from '../../context/AuthContext';
 import { useContext, useEffect, useState } from 'react';
-import { Favorite, FavoriteBorder, MoreVert, NotesOutlined } from '@mui/icons-material';
+import { Favorite, FavoriteBorder, MoreVert, NotesOutlined, Room } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import { format } from 'timeago.js';
 import axios from 'axios';
@@ -37,7 +37,14 @@ export default function Post({ post }) {
 
     function checkLocation() {
         if (post.location !== undefined) {
-            return <span className='postText'>Location: {post?.location}</span>;
+            return (
+                <>
+                    <span>
+                        <Room />
+                    </span>
+                    <span className='postText'>{post?.location}</span>
+                </>
+            );
         }
     }
 

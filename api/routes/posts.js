@@ -103,4 +103,38 @@ router.get('/profile/:username', async (req, res) => {
     }
 });
 
+// comment on a post
+router.put('/:id/comment', async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+        const comment = {
+            userId: req.body.userId,
+            comment: req.body.comment,
+        };
+
+        await post.updateOne({ $push: { comments: comment } });
+        res.status(200).json('You have commented on the post');
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+// delete a comment on a post
+router.delete('/:id/comment', async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+        const comment = {
+            userId: req.body.userId,
+            comment: req.body.comment,
+        };
+
+        if (!post.comments.includes(req.body.userId)) {
+            await post.updateOne({ $pull: { comments: comment } });
+            res.status(200).json('You have delete the comment on the post');
+        }
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 module.exports = router;
