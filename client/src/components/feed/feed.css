@@ -5,3 +5,9 @@
 .feedWrapper {
     padding: 20px;
 }
+
+#postAlert {
+    background-color: rgba(118, 254, 148, 0.3);
+    border: 1px solid rgba(118, 254, 148, 0.8);
+    border-radius: 10px;
+}

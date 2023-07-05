@@ -5,12 +5,15 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import axios from 'axios';
 import './share.css';
+import { Button } from '@mui/material';
 
 export default function Share() {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const { user } = useContext(AuthContext);
     const desc = useRef();
     const location = useRef();
+    let open = false;
+    let disabled = true;
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -25,6 +28,20 @@ export default function Share() {
             window.location.reload();
         } catch (err) {}
     };
+
+    function showLocation() {
+        let location = document.getElementById('shareLocationInput');
+
+        if (!open) {
+            location.style.visibility = 'visible';
+            location.style.width = '175px';
+            open = true;
+        } else {
+            location.style.width = '0px';
+            location.style.visibility = 'hidden';
+            open = false;
+        }
+    }
 
     return (
         <div className='share'>
@@ -56,7 +73,11 @@ export default function Share() {
                             </IconButton>
                         </Tooltip>
 
-                        <Room style={{ fontSize: 30 }} />
+                        <Tooltip title='Share a Location'>
+                            <IconButton onClick={showLocation}>
+                                <Room style={{ fontSize: 30 }} />
+                            </IconButton>
+                        </Tooltip>
 
                         <input
                             type='text'
@@ -68,7 +89,7 @@ export default function Share() {
 
                     <div className='shareButton'>
                         <Tooltip title='Post'>
-                            <IconButton type='submit'>
+                            <IconButton type='submit' disabled={disabled}>
                                 <Send style={{ fontSize: 30 }} />
                             </IconButton>
                         </Tooltip>
