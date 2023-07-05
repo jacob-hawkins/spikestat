@@ -1,13 +1,15 @@
 import { AuthContext } from '../../context/AuthContext';
 import { useContext, useEffect, useState } from 'react';
-import { MoreVert } from '@mui/icons-material';
+import { Favorite, FavoriteBorder, MoreVert, NotesOutlined } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import { format } from 'timeago.js';
 import axios from 'axios';
 import './post.css';
+import { IconButton, Tooltip } from '@mui/material';
 
 export default function Post({ post }) {
     const [like, setLike] = useState(post.likes.length);
+    const [comments, setComments] = useState(post.comments.length);
     const [isLiked, setIsLiked] = useState(false);
     const [user, setUser] = useState({});
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -33,12 +35,28 @@ export default function Post({ post }) {
         setIsLiked(!isLiked);
     };
 
+    function checkLocation() {
+        if (post.location !== undefined) {
+            return <span className='postText'>Location: {post?.location}</span>;
+        }
+    }
+
+    function checkLike() {
+        if (!isLiked) {
+            return <FavoriteBorder />;
+        } else {
+            return <Favorite />;
+        }
+    }
+
     return (
         <div className='post'>
             <div className='postWrapper'>
                 <div className='postTop flex-align'>
                     <div className='postTopLeft flex-align'>
-                        <Link to={`/profile/${user.username}`}>
+                        <Link
+                            to={`/profile/${user.username}`}
+                            className='postTopLeftLink flex-align'>
                             <img
                                 className='postProfileImg profile-pic'
                                 src={
@@ -48,9 +66,9 @@ export default function Post({ post }) {
                                 }
                                 alt=''
                             />
-                        </Link>
 
-                        <span className='postUsername'>{user.username}</span>
+                            <span className='postUsername'>{user.username}</span>
+                        </Link>
 
                         <span className='postDate'>{format(post.createdAt)}</span>
                     </div>
@@ -66,24 +84,24 @@ export default function Post({ post }) {
                 </div>
 
                 <div className='postBottom flex-align'>
-                    <div className='postBottomLeft flex-align'>
-                        <img
-                            className='likeIcon'
-                            src={`${PF}like.png`}
-                            onClick={likeHandler}
-                            alt=''
-                        />
-                        <img
-                            className='likeIcon'
-                            src={`${PF}heart.png`}
-                            onClick={likeHandler}
-                            alt=''
-                        />
-                        <span className='postLikeCounter'>{like} likes</span>
-                    </div>
+                    <div className='postBottomLeft flex-align'>{checkLocation()}</div>
 
-                    <div className='postBottomRight'>
-                        <span className='postCommentText'>{post.comment} comments</span>
+                    <div className='postBottomRight flex-align'>
+                        <Tooltip title='Like'>
+                            <span>
+                                <IconButton onClick={likeHandler}>{checkLike()}</IconButton>
+                            </span>
+                        </Tooltip>
+                        <span className='postLikeCounter'>{like}</span>
+
+                        <Tooltip title='Comments'>
+                            <span>
+                                <IconButton>
+                                    <NotesOutlined />
+                                </IconButton>
+                            </span>
+                        </Tooltip>
+                        <span className='postLikeCounter'>{comments}</span>
                     </div>
                 </div>
             </div>
