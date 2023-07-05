@@ -5,7 +5,6 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import axios from 'axios';
 import './share.css';
-import { Button } from '@mui/material';
 
 export default function Share() {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -68,15 +67,19 @@ export default function Share() {
                 <form className='shareBottom flex-align' onSubmit={submitHandler}>
                     <div className='shareOptions'>
                         <Tooltip title='Create a Game'>
-                            <IconButton>
-                                <AddBox style={{ fontSize: 30 }} />
-                            </IconButton>
+                            <span>
+                                <IconButton>
+                                    <AddBox style={{ fontSize: 30 }} />
+                                </IconButton>
+                            </span>
                         </Tooltip>
 
                         <Tooltip title='Share a Location'>
-                            <IconButton onClick={showLocation}>
-                                <Room style={{ fontSize: 30 }} />
-                            </IconButton>
+                            <span>
+                                <IconButton onClick={showLocation}>
+                                    <Room style={{ fontSize: 30 }} />
+                                </IconButton>
+                            </span>
                         </Tooltip>
 
                         <input
@@ -87,11 +90,13 @@ export default function Share() {
                         />
                     </div>
 
-                    <div className='shareButton'>
+                    <div className='shareButtonWrapper'>
                         <Tooltip title='Post'>
-                            <IconButton type='submit' disabled={disabled}>
-                                <Send style={{ fontSize: 30 }} />
-                            </IconButton>
+                            <span>
+                                <IconButton type='submit' disabled={disabled}>
+                                    <Send style={{ fontSize: 30 }} />
+                                </IconButton>
+                            </span>
                         </Tooltip>
                     </div>
                 </form>
