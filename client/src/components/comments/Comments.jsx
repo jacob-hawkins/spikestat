@@ -2,24 +2,71 @@ import React, { useEffect } from 'react';
 import './comments.css';
 import { Link } from 'react-router-dom';
 import { Send } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 
 export default function Comments({ post, user }) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
+    function expandComments() {
+        document.getElementsByClassName('post')[0].style.maxHeight = '425px';
+        document.getElementsByClassName('comments')[0].style.maxHeight = '225px';
+        document.getElementsByClassName('comments')[0].style.width = '99%';
+        document.getElementsByClassName('comments')[0].style.overflow = 'auto';
+
+        document.getElementsByClassName('commentSeeMoreButton')[0].style.width = '0px';
+        document.getElementsByClassName('commentSeeMoreButton')[0].style.height = '0px';
+        document.getElementsByClassName('commentSeeMoreButton')[0].style.visibility = 'hidden';
+    }
+
+    function closeComments() {
+        document.getElementsByClassName('post')[0].style.maxHeight = '375px';
+        document.getElementsByClassName('comments')[0].style.maxHeight = '190px';
+        document.getElementsByClassName('comments')[0].style.width = '100%';
+        document.getElementsByClassName('comments')[0].style.overflow = 'hidden';
+
+        document.getElementsByClassName('commentSeeMoreButton')[0].style.width = '100%';
+        document.getElementsByClassName('commentSeeMoreButton')[0].style.height = '50px';
+        document.getElementsByClassName('commentSeeMoreButton')[0].style.visibility = 'visible';
+
+        document
+            .getElementsByClassName('comments')[0]
+            .scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    }
+
     function checkComments(post) {
         if (!(post.comments.length <= 0)) {
-            return (
-                <div className='commentWrapper'>
-                    {post.comments.map((c) => (
-                        <>{getUserData(c)}</>
-                    ))}
-                </div>
-            );
+            if (post.comments.length > 3) {
+                return (
+                    <>
+                        <div className='commentWrapper'>
+                            {post.comments.map((c) => (
+                                <>{getUserData(c)}</>
+                            ))}
+                        </div>
+                        <span className='commentCloseButtonWrapper'>
+                            <Button style={{ color: 'rgb(246, 76, 114)' }} onClick={closeComments}>
+                                Close
+                            </Button>
+                        </span>
+
+                        <button className='commentSeeMoreButton' onClick={expandComments}>
+                            See More
+                        </button>
+                    </>
+                );
+            } else {
+                return (
+                    <div className='commentWrapper'>
+                        {post.comments.map((c) => (
+                            <>{getUserData(c)}</>
+                        ))}
+                    </div>
+                );
+            }
         }
     }
 
-    function checkIfButton() {
+    useEffect(() => {
         if (post.comments.length >= 3) {
             document.getElementsByClassName('post')[0].style.maxHeight = '375px';
 
@@ -27,11 +74,9 @@ export default function Comments({ post, user }) {
                 document.getElementsByClassName('comments')[0].style.maxHeight = '190px';
                 document.getElementsByClassName('comments')[0].style.width = '100%';
                 document.getElementsByClassName('comments')[0].style.overflow = 'hidden';
-
-                return <button className='commentSeeMoreButton'>See More</button>;
             }
         }
-    }
+    }, []);
 
     function getUserData(c) {
         return (
@@ -78,7 +123,6 @@ export default function Comments({ post, user }) {
                 </div>
 
                 {checkComments(post)}
-                {checkIfButton()}
             </div>
         </div>
     );

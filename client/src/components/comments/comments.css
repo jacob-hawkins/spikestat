@@ -1,7 +1,5 @@
 .comments {
     width: 99%;
-    /* padding: 0px 0px 10px 15px; */
-    /* transition: height 0.4s ease-in; */
     max-height: 170px;
     overflow: auto;
 
@@ -26,12 +24,12 @@
 .commentInputWrapper {
     gap: 15px;
     width: 97%;
-    /* height: 30px; */
     justify-content: space-between;
     position: sticky;
     top: 0;
     background-color: var(--commentBackgroundColor);
-    padding: 15px 0px 5px 10px;
+    padding: 15px 0px 10px 10px;
+    border-radius: 10px;
 }
 
 .commentProfilePic {
@@ -77,9 +75,18 @@
     height: 50px;
     border: none;
     color: white;
+    border-radius: 10px;
 
     background: rgb(17, 9, 46);
     background: linear-gradient(90deg, rgb(17, 9, 46) 40%, rgba(0, 255, 0, 0) 100%);
     background: -webkit-linear-gradient(90deg, rgb(17, 9, 46) 40%, rgba(0, 255, 0, 0) 100%);
     background: -moz-linear-gradient(90deg, rgb(17, 9, 46) 40%, rgba(0, 255, 0, 0) 100%);
+}
+
+.commentCloseButtonWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 0;
 }
