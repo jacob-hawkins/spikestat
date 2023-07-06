@@ -19,6 +19,20 @@ export default function Comments({ post, user }) {
         }
     }
 
+    function checkIfButton() {
+        if (post.comments.length >= 3) {
+            document.getElementsByClassName('post')[0].style.maxHeight = '375px';
+
+            if (post.comments.length > 3) {
+                document.getElementsByClassName('comments')[0].style.maxHeight = '190px';
+                document.getElementsByClassName('comments')[0].style.width = '100%';
+                document.getElementsByClassName('comments')[0].style.overflow = 'hidden';
+
+                return <button className='commentSeeMoreButton'>See More</button>;
+            }
+        }
+    }
+
     function getUserData(c) {
         return (
             <div className='comment flex-align'>
@@ -64,6 +78,7 @@ export default function Comments({ post, user }) {
                 </div>
 
                 {checkComments(post)}
+                {checkIfButton()}
             </div>
         </div>
     );
