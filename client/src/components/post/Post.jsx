@@ -1,12 +1,12 @@
+import { Favorite, FavoriteBorder, MoreVert, NotesOutlined, Room } from '@mui/icons-material';
+import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import { AuthContext } from '../../context/AuthContext';
 import { useContext, useEffect, useState } from 'react';
-import { Favorite, FavoriteBorder, MoreVert, NotesOutlined, Room } from '@mui/icons-material';
+import Comments from '../comments/Comments';
 import { Link } from 'react-router-dom';
 import { format } from 'timeago.js';
 import axios from 'axios';
 import './post.css';
-import { IconButton, Tooltip } from '@mui/material';
-import Comments from '../comments/Comments';
 
 export default function Post({ post }) {
     const [like, setLike] = useState(post.likes.length);
@@ -15,6 +15,10 @@ export default function Post({ post }) {
     const [user, setUser] = useState({});
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const { user: currentUser } = useContext(AuthContext);
+
+    // menu
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
 
     useEffect(() => {
         setIsLiked(post.likes.includes(currentUser._id));
@@ -53,9 +57,86 @@ export default function Post({ post }) {
         if (!isLiked) {
             return <FavoriteBorder />;
         } else {
-            return <Favorite />;
+            return <Favorite style={{ fill: 'rgb(246, 76, 114)' }} />;
         }
     }
+
+    function checkMenuOptions() {
+        if (post.userId === currentUser._id) {
+            return (
+                <Menu
+                    id='postMenu'
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    MenuListProps={{
+                        'aria-labelledby': 'basic-button',
+                    }}
+                    sx={{
+                        mt: '1px',
+                        '& .MuiMenu-paper': {
+                            backgroundColor: 'rgb(28, 15, 73)',
+                            color: 'white',
+                        },
+                    }}>
+                    <MenuItem onClick={handleClose}>Edit Post</MenuItem>
+                    <MenuItem onClick={deletePost}>Delete Post</MenuItem>
+                </Menu>
+            );
+        } else {
+            return (
+                <Menu
+                    id='postMenu'
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    MenuListProps={{
+                        'aria-labelledby': 'basic-button',
+                    }}
+                    sx={{
+                        mt: '1px',
+                        '& .MuiMenu-paper': {
+                            backgroundColor: 'rgb(28, 15, 73)',
+                            color: 'white',
+                        },
+                    }}>
+                    <MenuItem onClick={handleClose}>View User Profile</MenuItem>
+                </Menu>
+            );
+        }
+    }
+
+    // menu
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const deletePost = async () => {
+        try {
+            await axios.delete('/posts/' + post._id, { data: { userId: currentUser._id } });
+            window.location.reload();
+        } catch (err) {}
+    };
 
     return (
         <div className='post'>
@@ -82,7 +163,15 @@ export default function Post({ post }) {
                     </div>
 
                     <div className='postTopRight'>
-                        <MoreVert />
+                        <IconButton
+                            id='postEditButton'
+                            aria-controls={open ? 'basic-menu' : undefined}
+                            aria-haspopup='true'
+                            aria-expanded={open ? 'true' : undefined}
+                            onClick={handleClick}>
+                            <MoreVert />
+                        </IconButton>
+                        {checkMenuOptions()}
                     </div>
                 </div>
 

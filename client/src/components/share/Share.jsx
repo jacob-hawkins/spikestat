@@ -109,7 +109,7 @@ export default function Share() {
                     <div className='shareButtonWrapper'>
                         <Tooltip title='Post'>
                             <span>
-                                <IconButton type='submit' disabled={disabled}>
+                                <IconButton type='submit'>
                                     <Send style={{ fontSize: 30 }} />
                                 </IconButton>
                             </span>

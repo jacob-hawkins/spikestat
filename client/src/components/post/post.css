@@ -35,6 +35,10 @@
     font-size: 12px;
 }
 
+#postMenu {
+    color: white;
+}
+
 .postCenter {
     margin: 20px 0;
 }
