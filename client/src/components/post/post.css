@@ -1,12 +1,14 @@
 .post {
     width: 100%;
-    border-radius: 10px;
     box-shadow: var(--boxShadow);
-    margin: 30px 0;
-    background-color: var(--objectColor);
+    margin: 30px 0 0 0;
+    background-color: var(--commentBackgroundColor);
+    border-radius: 10px;
 }
 
 .postWrapper {
+    background-color: var(--objectColor);
+    border-radius: 10px;
     padding: 10px;
 }
 
@@ -48,19 +50,10 @@
     justify-content: space-between;
 }
 
-.likeIcon {
-    width: 24px;
-    height: 24px;
-    margin-right: 5px;
-    cursor: pointer;
-}
-
 .postLikeCounter {
     font-style: 15px;
 }
 
-.postCommentText {
-    cursor: pointer;
-    font-style: 15px;
-    border-bottom: 1px dashed grey;
+.postCommentIcon {
+    margin: 5px;
 }

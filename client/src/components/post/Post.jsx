@@ -6,6 +6,7 @@ import { format } from 'timeago.js';
 import axios from 'axios';
 import './post.css';
 import { IconButton, Tooltip } from '@mui/material';
+import Comments from '../comments/Comments';
 
 export default function Post({ post }) {
     const [like, setLike] = useState(post.likes.length);
@@ -102,16 +103,14 @@ export default function Post({ post }) {
                         <span className='postLikeCounter'>{like}</span>
 
                         <Tooltip title='Comments'>
-                            <span>
-                                <IconButton>
-                                    <NotesOutlined />
-                                </IconButton>
-                            </span>
+                            <NotesOutlined className='postCommentIcon' />
                         </Tooltip>
                         <span className='postLikeCounter'>{comments}</span>
                     </div>
                 </div>
             </div>
+
+            <Comments key={post._id} post={post} user={currentUser} />
         </div>
     );
 }

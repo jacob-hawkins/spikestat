@@ -1,17 +1,35 @@
 :root {
-    --backgroundColor: #1a093f;
-    --objectColor: #2b0d69;
-    --textColor: white;
-    --accentColor: #f64c72;
+    --backgroundColor: rgb(26, 9, 63);
+    --objectColor: rgb(43, 13, 105);
+    --textColor: rgb(255, 255, 255);
+    --accentColor: rgb(246, 76, 114);
+    --commentBackgroundColor: rgb(28, 15, 73);
     --boxShadow: 0px 0px 25px 5px rgba(0, 0, 0, 0.25);
 }
 
 * {
     color: var(--textColor);
+
+    /* firefox scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: rgb(117, 117, 117) var(--backgroundColor);
 }
 
 body {
     background-color: var(--backgroundColor);
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--backgroundColor);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(117, 117, 117);
+    border-radius: 10px;
 }
 
 .flex-align {

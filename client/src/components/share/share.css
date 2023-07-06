@@ -50,7 +50,7 @@
 #shareLocationInput {
     background: none;
     border: 1px solid var(--textColor);
-    border-radius: 15px;
+    border-radius: 10px;
     padding: 5px 10px;
     font-size: 15px;
     width: 0px;
