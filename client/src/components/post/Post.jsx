@@ -3,7 +3,7 @@ import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import { AuthContext } from '../../context/AuthContext';
 import { useContext, useEffect, useState } from 'react';
 import Comments from '../comments/Comments';
-import { Link } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 import { format } from 'timeago.js';
 import axios from 'axios';
 import './post.css';
@@ -41,7 +41,7 @@ export default function Post({ post }) {
     };
 
     function checkLocation() {
-        if (post.location !== undefined) {
+        if (post.location !== null) {
             return (
                 <>
                     <span>
@@ -87,7 +87,7 @@ export default function Post({ post }) {
                             color: 'white',
                         },
                     }}>
-                    <MenuItem onClick={handleClose}>Edit Post</MenuItem>
+                    {/* <MenuItem onClick={handleClose}>Edit Post</MenuItem> */}
                     <MenuItem onClick={deletePost}>Delete Post</MenuItem>
                 </Menu>
             );
@@ -116,7 +116,7 @@ export default function Post({ post }) {
                             color: 'white',
                         },
                     }}>
-                    <MenuItem onClick={handleClose}>View User Profile</MenuItem>
+                    <MenuItem onClick={goToUserPage}>See Profile</MenuItem>
                 </Menu>
             );
         }
@@ -133,10 +133,14 @@ export default function Post({ post }) {
 
     const deletePost = async () => {
         try {
-            await axios.delete('/posts/' + post._id, { data: { userId: currentUser._id } });
+            await axios.delete(`/posts/${post._id}`, { data: { userId: currentUser._id } });
             window.location.reload();
         } catch (err) {}
     };
+
+    function goToUserPage() {
+        return redirect(`/profile/${user.username}`);
+    }
 
     return (
         <div className='post'>

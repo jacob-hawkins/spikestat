@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
-import './comments.css';
-import { Link } from 'react-router-dom';
-import { Send } from '@mui/icons-material';
 import { Button, IconButton } from '@mui/material';
+import React, { useEffect, useRef } from 'react';
+import { Send } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import './comments.css';
 
 export default function Comments({ post, user }) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+    const comment = useRef();
 
     function expandComments() {
         document.getElementsByClassName('post')[0].style.maxHeight = '425px';
@@ -102,6 +104,18 @@ export default function Comments({ post, user }) {
         );
     }
 
+    const sendComment = async () => {
+        const newComment = {
+            userId: user._id,
+            comment: comment.current.value,
+        };
+
+        try {
+            await axios.put(`/posts/${post._id}/comment`, newComment);
+            window.location.reload();
+        } catch (err) {}
+    };
+
     return (
         <div className='comments'>
             <div className='commentsWrapper'>
@@ -115,9 +129,14 @@ export default function Comments({ post, user }) {
                         }
                         alt=''
                     />
-                    <input type='text' placeholder='Leave a Comment' className='commentTextbox' />
+                    <input
+                        type='text'
+                        placeholder='Leave a Comment'
+                        ref={comment}
+                        className='commentTextbox'
+                    />
 
-                    <IconButton>
+                    <IconButton onClick={sendComment}>
                         <Send />
                     </IconButton>
                 </div>

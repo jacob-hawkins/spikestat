@@ -24,6 +24,8 @@ export default function Share() {
             location: location.current.value,
         };
 
+        if (newPost.location === '') newPost.location = null;
+
         try {
             await axios.post('/posts', newPost);
             window.location.reload();
