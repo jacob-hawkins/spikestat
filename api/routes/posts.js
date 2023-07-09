@@ -108,7 +108,7 @@ router.put('/:id/comment', async (req, res) => {
     try {
         const post = await Post.findById(req.params.id);
         const comment = {
-            userId: req.body.userId,
+            user: req.body.user,
             comment: req.body.comment,
         };
 

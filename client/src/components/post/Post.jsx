@@ -1,4 +1,12 @@
-import { Favorite, FavoriteBorder, MoreVert, NotesOutlined, Room } from '@mui/icons-material';
+import {
+    AccountCircle,
+    Delete,
+    Favorite,
+    FavoriteBorder,
+    MoreVert,
+    NotesOutlined,
+    Room,
+} from '@mui/icons-material';
 import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import { AuthContext } from '../../context/AuthContext';
 import { useContext, useEffect, useState } from 'react';
@@ -88,7 +96,10 @@ export default function Post({ post }) {
                         },
                     }}>
                     {/* <MenuItem onClick={handleClose}>Edit Post</MenuItem> */}
-                    <MenuItem onClick={deletePost}>Delete Post</MenuItem>
+                    <MenuItem onClick={deletePost}>
+                        <Delete style={{ marginRight: '5px' }} />
+                        Delete Post
+                    </MenuItem>
                 </Menu>
             );
         } else {
@@ -116,7 +127,10 @@ export default function Post({ post }) {
                             color: 'white',
                         },
                     }}>
-                    <MenuItem onClick={goToUserPage}>See Profile</MenuItem>
+                    <MenuItem onClick={goToUserPage}>
+                        <AccountCircle style={{ marginRight: '5px' }} />
+                        See Profile
+                    </MenuItem>
                 </Menu>
             );
         }
@@ -203,7 +217,7 @@ export default function Post({ post }) {
                 </div>
             </div>
 
-            <Comments key={post._id} post={post} user={currentUser} />
+            <Comments key={post._id} post={post} currentUser={currentUser} />
         </div>
     );
 }
