@@ -28,7 +28,7 @@ export default function Feed({ username }) {
                 {(!username || username === user.username) && <Share />}
 
                 {posts.map((p) => (
-                    <Post key={p._id} post={p} />
+                    p.game ? <></> : <Post key={p._id} post={p} />
                 ))}
             </div>
         </div>

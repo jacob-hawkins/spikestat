@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 const PostSchema = new mongoose.Schema(
     {
-        type: {
-            type: String,
-            required: true,
+        game: {
+            type: Boolean,
+            default: false,
         },
         userId: {
             type: String,

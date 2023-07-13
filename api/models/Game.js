@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 const GameSchema = new mongoose.Schema(
     {
-        type: {
-            type: String,
-            required: true,
+        game: {
+            type: Boolean,
+            default: true,
         },
         userId: {
             type: String,
