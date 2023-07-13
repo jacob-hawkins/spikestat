@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const userRoute = require('./routes/users');
 const authRoute = require('./routes/auth');
 const postRoute = require('./routes/posts');
+const gameRoute = require('./routes/game');
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(morgan('common'));
 app.use('/api/users', userRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/posts', postRoute);
+app.use('/api/game', gameRoute);
 
 app.listen(8800, () => {
     console.log('Backend server is running!');
