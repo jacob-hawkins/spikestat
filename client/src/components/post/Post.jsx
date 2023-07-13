@@ -127,10 +127,12 @@ export default function Post({ post }) {
                             color: 'white',
                         },
                     }}>
-                    <MenuItem onClick={goToUserPage}>
-                        <AccountCircle style={{ marginRight: '5px' }} />
-                        See Profile
-                    </MenuItem>
+                    <Link to={`/profile/${user.username}`} style={{ textDecoration: 'none' }}>
+                        <MenuItem>
+                            <AccountCircle style={{ marginRight: '5px' }} />
+                            See Profile
+                        </MenuItem>
+                    </Link>
                 </Menu>
             );
         }
@@ -152,9 +154,10 @@ export default function Post({ post }) {
         } catch (err) {}
     };
 
-    function goToUserPage() {
-        return redirect(`/profile/${user.username}`);
-    }
+    // function goToUserPage() {
+    //     return redirect('/profile/' + user.username);
+    //     // redirect(`/profile/${user.username}`);
+    // }
 
     return (
         <div className='post'>
