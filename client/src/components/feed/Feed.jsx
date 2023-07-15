@@ -4,6 +4,7 @@ import Post from '../post/Post';
 import Share from '../share/Share';
 import axios from 'axios';
 import './feed.css';
+import Game from '../game/Game';
 
 export default function Feed({ username }) {
     const [posts, setPosts] = useState([]);
@@ -27,9 +28,9 @@ export default function Feed({ username }) {
             <div className='feedWrapper'>
                 {(!username || username === user.username) && <Share />}
 
-                {posts.map((p) => (
-                    p.game ? <></> : <Post key={p._id} post={p} />
-                ))}
+                <Game />
+
+                {/* {posts.map((p) => (p.game ? <></> : <Post key={p._id} post={p} />))} */}
             </div>
         </div>
     );

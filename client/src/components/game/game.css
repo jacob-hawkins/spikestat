@@ -1,0 +1,16 @@
+.game {
+    width: 100%;
+}
+
+.gameWrapper {
+    box-shadow: var(--boxShadow);
+    margin: 30px 0 0 0;
+    background-color: var(--commentBackgroundColor);
+    border-radius: 10px;
+    background-color: var(--objectColor);
+    padding: 10px;
+}
+
+.gameTop {
+    justify-content: space-between;
+}
