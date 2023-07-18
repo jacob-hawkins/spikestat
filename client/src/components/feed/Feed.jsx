@@ -28,9 +28,9 @@ export default function Feed({ username }) {
             <div className='feedWrapper'>
                 {(!username || username === user.username) && <Share />}
 
-                <Game id={user._id} user={user} />
-
-                {/* {posts.map((p) => (p.game ? <></> : <Post key={p._id} post={p} />))} */}
+                {posts.map((p) =>
+                    p.game ? <Game key={p._id} post={p} /> : <Post key={p._id} post={p} />
+                )}
             </div>
         </div>
     );
