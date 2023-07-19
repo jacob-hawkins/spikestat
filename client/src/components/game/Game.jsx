@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-// import { MoreVert } from '@mui/icons-material';
+import { AccountCircle, Delete, MoreVert } from '@mui/icons-material';
 import './game.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import { format } from 'timeago.js';
+import { IconButton, Menu, MenuItem } from '@mui/material';
 
 function Game({ post }) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -13,9 +14,97 @@ function Game({ post }) {
     const [opposing1, setOpposing1] = useState({});
     const [opposing2, setOpposing2] = useState({});
     const { user: currentUser } = useContext(AuthContext);
-    let teammateExist = true;
-    let opposing1Exist = true;
-    let opposing2Exist = true;
+    // let teammateExist = true;
+    // let opposing1Exist = true;
+    // let opposing2Exist = true;
+
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+
+    // menu
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const deletePost = async () => {
+        try {
+            await axios.delete(`/posts/${post._id}`, { data: { userId: currentUser._id } });
+            window.location.reload();
+        } catch (err) {}
+    };
+
+    function checkMenuOptions() {
+        if (post.userId === currentUser._id) {
+            return (
+                <Menu
+                    id='postMenu'
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    MenuListProps={{
+                        'aria-labelledby': 'basic-button',
+                    }}
+                    sx={{
+                        mt: '1px',
+                        '& .MuiMenu-paper': {
+                            backgroundColor: 'rgb(28, 15, 73)',
+                            color: 'white',
+                        },
+                    }}>
+                    {/* <MenuItem onClick={handleClose}>Edit Post</MenuItem> */}
+                    <MenuItem onClick={deletePost}>
+                        <Delete style={{ marginRight: '5px' }} />
+                        Delete Post
+                    </MenuItem>
+                </Menu>
+            );
+        } else {
+            return (
+                <Menu
+                    id='postMenu'
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    MenuListProps={{
+                        'aria-labelledby': 'basic-button',
+                    }}
+                    sx={{
+                        mt: '1px',
+                        '& .MuiMenu-paper': {
+                            backgroundColor: 'rgb(28, 15, 73)',
+                            color: 'white',
+                        },
+                    }}>
+                    <Link to={`/profile/${user.username}`} style={{ textDecoration: 'none' }}>
+                        <MenuItem>
+                            <AccountCircle style={{ marginRight: '5px' }} />
+                            See Profile
+                        </MenuItem>
+                    </Link>
+                </Menu>
+            );
+        }
+    }
 
     useEffect(() => {
         (async () => {
@@ -31,7 +120,7 @@ function Game({ post }) {
                 setTeammate({
                     username: post.teammate,
                 });
-                teammateExist = false;
+                // teammateExist = false;
             }
         })();
 
@@ -43,7 +132,7 @@ function Game({ post }) {
                 setOpposing1({
                     username: post.opposingTeam[0],
                 });
-                opposing1Exist = false;
+                // opposing1Exist = false;
             }
         })();
 
@@ -55,16 +144,16 @@ function Game({ post }) {
                 setOpposing2({
                     username: post.opposingTeam[1],
                 });
-                opposing2Exist = false;
+                // opposing2Exist = false;
             }
         })();
     }, [post.userId, post.teammate, post.opposingTeam[0], post.opposingTeam[1]]);
 
-    const exsists = (user) => {
+    const exists = (user) => {
         return (
             <Link to={`/profile/${user.username}`} className='flex-align'>
                 <img
-                    className='postProfileImg profile-pic'
+                    className='gameProfileImg profile-pic'
                     src={
                         user.profilePicture ? PF + user.profilePicture : PF + 'person/noAvatar.png'
                     }
@@ -80,7 +169,7 @@ function Game({ post }) {
         return (
             <>
                 <img
-                    className='postProfileImg profile-pic'
+                    className='gameProfileImg profile-pic'
                     src={PF + 'person/noAvatar.png'}
                     alt=''
                 />
@@ -93,21 +182,37 @@ function Game({ post }) {
     return (
         <div className='game'>
             <div className='gameWrapper'>
-                <div className='gameTopLeft flex-align'>
-                    <Link to={`/profile/${user.username}`} className='gameTopLeftLink flex-align'>
-                        <img
-                            className='postProfileImg profile-pic'
-                            src={
-                                user.profilePicture
-                                    ? PF + user.profilePicture
-                                    : PF + 'person/noAvatar.png'
-                            }
-                            alt=''
-                        />
+                <div className='gameTop flex-align'>
+                    <div className='gameTopLeft flex-align'>
+                        <Link
+                            to={`/profile/${user.username}`}
+                            className='gameTopLeftLink flex-align'>
+                            <img
+                                className='postProfileImg profile-pic'
+                                src={
+                                    user.profilePicture
+                                        ? PF + user.profilePicture
+                                        : PF + 'person/noAvatar.png'
+                                }
+                                alt=''
+                            />
 
-                        <span className='postUsername'>{user.username}</span>
-                    </Link>
-                    <span className='postDate'>{format(post.createdAt)}</span>
+                            <span className='postUsername'>{user.username}</span>
+                        </Link>
+                        <span className='postDate'>{format(post.createdAt)}</span>
+                    </div>
+
+                    <div className='gameTopRight'>
+                        <IconButton
+                            id='postEditButton'
+                            aria-controls={open ? 'basic-menu' : undefined}
+                            aria-haspopup='true'
+                            aria-expanded={open ? 'true' : undefined}
+                            onClick={handleClick}>
+                            <MoreVert />
+                        </IconButton>
+                        {checkMenuOptions()}
+                    </div>
                 </div>
 
                 <div className='gameScoreWrapper flex-align'>
@@ -121,23 +226,25 @@ function Game({ post }) {
                 <div className='gamePlayerListWrapper flex-align'>
                     <div className='gamePlayerList flex-align'>
                         <div className='gameTeam'>
-                            <div className='player'>{exsists(user)}</div>
+                            <div className='player flex-align'>{exists(user)}</div>
 
-                            <div className='player'>
-                                {teammateExist ? exsists(teammate) : noUser(teammate)}
+                            <div className='player flex-align'>
+                                {/* {teammateExist ? exists(teammate) : noUser(teammate)} */}
+                                {noUser(teammate)}
                             </div>
                         </div>
 
                         <div className='vertLine'></div>
 
                         <div className='gameTeam'>
-                            <div className='player'>
-                                {console.log(opposing1Exist)}
-                                {opposing1Exist ? exsists(opposing1) : noUser(opposing1)}
+                            <div className='player flex-align'>
+                                {/* {opposing1Exist ? exists(opposing1) : noUser(opposing1)} */}
+                                {noUser(opposing1)}
                             </div>
 
-                            <div className='player'>
-                                {opposing2Exist ? exsists(opposing2) : noUser(opposing2)}
+                            <div className='player flex-align'>
+                                {/* {opposing2Exist ? exists(opposing2) : noUser(opposing2)} */}
+                                {noUser(opposing2)}
                             </div>
                         </div>
                     </div>

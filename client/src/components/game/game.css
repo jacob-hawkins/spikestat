@@ -46,7 +46,7 @@
     width: 50%;
     justify-content: center;
     gap: 30px;
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .gameTeam {
@@ -56,10 +56,16 @@
     /* align-items: center; */
     flex-direction: column;
     margin-left: 20px;
+    gap: 5px;
 }
 
 .gamePlayerName {
     margin-left: 15px;
+}
+
+.gameProfileImg {
+    width: 25px;
+    height: 25px;
 }
 
 .vertLine {
