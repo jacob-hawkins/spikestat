@@ -12,6 +12,7 @@ const INITIAL_STATE = {
         followers: [],
         following: ['646d4992e001d71ea293d09b'],
     },
+    // user: false,
     isFetching: false,
     error: false,
 };
