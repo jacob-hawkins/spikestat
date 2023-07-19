@@ -14,9 +14,13 @@ function Game({ post }) {
     const [opposing1, setOpposing1] = useState({});
     const [opposing2, setOpposing2] = useState({});
     const { user: currentUser } = useContext(AuthContext);
-    // let teammateExist = true;
-    // let opposing1Exist = true;
-    // let opposing2Exist = true;
+    // const [teammateExist, setTeammateExist] = useState(null);
+    // const [opposing1Exist, setOpposing1Exist] = useState(null);
+    // const [opposing2Exist, setOpposing2Exist] = useState(null);
+
+    // let teammateExist = false;
+    // let opposing1Exist = false;
+    // let opposing2Exist = false;
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -114,38 +118,45 @@ function Game({ post }) {
 
         (async () => {
             try {
-                const res = await axios.get(`/users?userId=${post.teammate}`);
-                setTeammate(res.data);
-            } catch (err) {
-                setTeammate({
-                    username: post.teammate,
-                });
-                // teammateExist = false;
-            }
+                let res = await axios.get(`/users/exist?username=${post.teammate}`);
+
+                if (res.data === true) {
+                    try {
+                        res = await axios.get(`/users?username=${post.teammate}`);
+                        setTeammate(res.data);
+                    } catch (err) {}
+                } else {
+                    setTeammate({ username: null });
+                }
+            } catch (err) {}
         })();
 
         (async () => {
             try {
-                const res = await axios.get(`/users?userId=${post.opposingTeam[0]}`);
-                setOpposing1(res.data);
-            } catch (err) {
-                setOpposing1({
-                    username: post.opposingTeam[0],
-                });
-                // opposing1Exist = false;
-            }
+                let res = await axios.get(`/users/exist?username=${post.opposingTeam[0]}`);
+
+                if (res.data === true) {
+                    try {
+                        res = await axios.get(`/users?username=${post.opposingTeam[0]}`);
+                        setOpposing1(res.data);
+                    } catch (err) {}
+                } else {
+                    setOpposing1({ username: null });
+                }
+            } catch (err) {}
         })();
 
         (async () => {
             try {
-                const res = await axios.get(`/users?userId=${post.opposingTeam[1]}`);
-                setOpposing2(res.data);
-            } catch (err) {
-                setOpposing2({
-                    username: post.opposingTeam[1],
-                });
-                // opposing2Exist = false;
-            }
+                let res = await axios.get(`/users/exist?username=${post.opposingTeam[1]}`);
+
+                if (res.data === true) {
+                    res = await axios.get(`/users?username=${post.opposingTeam[1]}`);
+                    setOpposing2(res.data);
+                } else {
+                    setOpposing2({ username: null });
+                }
+            } catch (err) {}
         })();
     }, [post.userId, post.teammate, post.opposingTeam[0], post.opposingTeam[1]]);
 
@@ -174,7 +185,7 @@ function Game({ post }) {
                     alt=''
                 />
 
-                <span className='gamePlayerName'>{user.username}</span>
+                <span className='gamePlayerName'>{user}</span>
             </>
         );
     };
@@ -229,8 +240,10 @@ function Game({ post }) {
                             <div className='player flex-align'>{exists(user)}</div>
 
                             <div className='player flex-align'>
-                                {/* {teammateExist ? exists(teammate) : noUser(teammate)} */}
-                                {noUser(teammate)}
+                                {teammate &&
+                                    (teammate.username !== null
+                                        ? exists(teammate)
+                                        : noUser(post.teammate))}
                             </div>
                         </div>
 
@@ -238,13 +251,17 @@ function Game({ post }) {
 
                         <div className='gameTeam'>
                             <div className='player flex-align'>
-                                {/* {opposing1Exist ? exists(opposing1) : noUser(opposing1)} */}
-                                {noUser(opposing1)}
+                                {opposing1 && opposing1.username !== null
+                                    ? exists(opposing1)
+                                    : noUser(post.opposingTeam[0])}
+                                {/* {noUser(post.opposingTeam[0])} */}
                             </div>
 
                             <div className='player flex-align'>
-                                {/* {opposing2Exist ? exists(opposing2) : noUser(opposing2)} */}
-                                {noUser(opposing2)}
+                                {opposing2 && opposing2.username !== null
+                                    ? exists(opposing2)
+                                    : noUser(post.opposingTeam[1])}
+                                {/* {noUser(post.opposingTeam[1])} */}
                             </div>
                         </div>
                     </div>

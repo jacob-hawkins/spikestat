@@ -58,6 +58,23 @@ router.get('/', async (req, res) => {
     }
 });
 
+// check if user exist
+router.get('/exist', async (req, res) => {
+    const userId = req.query.userId;
+    const username = req.query.username;
+
+    try {
+        const user = userId
+            ? await User.findById(userId)
+            : await User.findOne({ username: username });
+        const { password, updatedAt, ...other } = user._doc;
+
+        res.status(200).json(true);
+    } catch (err) {
+        res.status(200).json(false);
+    }
+});
+
 // get user friends
 router.get('/friends/:userId', async (req, res) => {
     try {

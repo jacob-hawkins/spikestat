@@ -66,6 +66,7 @@
 .gameProfileImg {
     width: 25px;
     height: 25px;
+    border-radius: 3px !important;
 }
 
 .vertLine {

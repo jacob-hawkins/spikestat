@@ -19,6 +19,10 @@ body {
     background-color: var(--backgroundColor);
 }
 
+a {
+    text-decoration: none;
+}
+
 ::-webkit-scrollbar {
     width: 5px;
 }
