@@ -45,31 +45,6 @@ export default function Rightbar({ user }) {
         followed = !followed;
     };
 
-    const HomeRightbar = () => {
-        return (
-            <>
-                <div className='birthdayContainer flex-align'>
-                    <img className='birthdayImg' src='/assets/gift.png' alt='' />
-
-                    <span className='birthdayText'>
-                        <span className='bold'>Pola Foster</span> and
-                        <span className='bold'>3 other friends</span> have a birthday today.
-                    </span>
-                </div>
-
-                <img className='rightbarAd' src='/assets/ad.png' alt='' />
-
-                <h4 className='rightbarTitle'>Online Friends</h4>
-
-                <ul className='rightbarFriendList'>
-                    {Users.map((u) => (
-                        <Online key={u.id} user={u} />
-                    ))}
-                </ul>
-            </>
-        );
-    };
-
     const ProfileRightbar = () => {
         let gamesPlayed, wins, losses;
 
@@ -233,7 +208,9 @@ export default function Rightbar({ user }) {
 
     return (
         <div className='rightbar'>
-            <div className='rightbarWrapper'>{user ? <ProfileRightbar /> : <HomeRightbar />}</div>
+            <div className='rightbarWrapper'>
+                <ProfileRightbar />
+            </div>
         </div>
     );
 }

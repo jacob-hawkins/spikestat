@@ -65,11 +65,7 @@ export default function Share() {
                         }
                         alt=''
                     />
-                    <input
-                        placeholder={"What's on your mind " + user.username + '?'}
-                        ref={desc}
-                        className='shareInput'
-                    />
+                    <input placeholder={"What's on your mind?"} ref={desc} className='shareInput' />
                 </div>
 
                 <hr className='shareHr' />

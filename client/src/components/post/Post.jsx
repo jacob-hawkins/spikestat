@@ -1,12 +1,4 @@
-import {
-    AccountCircle,
-    Delete,
-    Favorite,
-    FavoriteBorder,
-    MoreVert,
-    NotesOutlined,
-    Room,
-} from '@mui/icons-material';
+import { AccountCircle, Delete, MoreVert, NotesOutlined } from '@mui/icons-material';
 import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import { AuthContext } from '../../context/AuthContext';
 import { useContext, useEffect, useState } from 'react';
@@ -177,8 +169,7 @@ export default function Post({ post }) {
                 </div>
 
                 <div className='postCenter'>
-                    <span className='postText'>{post?.desc}</span>
-                    <img className='postImg' src={PF + post?.img} alt='' />
+                    <span className='postText'>{post.desc}</span>
                 </div>
 
                 <div className='postBottom flex-align'>
