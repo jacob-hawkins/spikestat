@@ -9,6 +9,7 @@ import GameShare from '../gameShare/GameShare';
 
 export default function Feed({ username }) {
     const [posts, setPosts] = useState([]);
+    const [state, setState] = useState({});
     const { user } = useContext(AuthContext);
 
     useEffect(() => {
@@ -24,13 +25,23 @@ export default function Feed({ username }) {
         })();
     }, [username, user._id]);
 
+    const handleCallback = (childData) => {
+        console.log(`childdata: ${childData}`);
+        setState({ game: childData });
+        console.log(state);
+    };
+
     return (
         <div className='feed'>
             <div className='feedWrapper'>
                 {(!username || username === user.username) && (
                     <>
-                        {/* <Share /> */}
-                        <GameShare />
+                        {state.game ? (
+                            <GameShare parentCallback={handleCallback} />
+                        ) : (
+                            <Share parentCallback={handleCallback} />
+                        )}
+
                         <hr className='feedHr' />
                     </>
                 )}

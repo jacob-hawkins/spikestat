@@ -6,7 +6,7 @@ import Tooltip from '@mui/material/Tooltip';
 import axios from 'axios';
 import './share.css';
 
-export default function Share() {
+export default function Share(props) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const { user } = useContext(AuthContext);
     const desc = useRef();
@@ -51,6 +51,10 @@ export default function Share() {
         // show alert
     }
 
+    const setGame = () => {
+        props.parentCallback(true);
+    };
+
     return (
         <div className='share'>
             <div className='shareWrapper'>
@@ -73,7 +77,7 @@ export default function Share() {
                     <div className='shareOptions'>
                         <Tooltip title='Create a Game'>
                             <span>
-                                <IconButton>
+                                <IconButton onClick={setGame}>
                                     <AddBox style={{ fontSize: 30 }} />
                                 </IconButton>
                             </span>

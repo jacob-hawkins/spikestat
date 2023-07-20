@@ -2,11 +2,11 @@ import React, { useContext, useRef, useState } from 'react';
 import './gameShare.css';
 import { Link } from 'react-router-dom';
 import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
-import { Delete, MoreVert, Room, Send } from '@mui/icons-material';
+import { Close, Delete, MoreVert, Room, Send } from '@mui/icons-material';
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
 
-function GameShare() {
+function GameShare(props) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const { user } = useContext(AuthContext);
     const score = useRef();
@@ -39,54 +39,9 @@ function GameShare() {
         } catch (err) {}
     };
 
-    // menu
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
+    const setGame = () => {
+        props.parentCallback(false);
     };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-    const deleteGame = async () => {
-        // try {
-        //     await axios.delete(`/game/${post._id}`, { data: { userId: currentUser._id } });
-        //     window.location.reload();
-        // } catch (err) {}
-    };
-
-    function menu() {
-        return (
-            <Menu
-                id='postMenu'
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-                MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                }}
-                sx={{
-                    mt: '1px',
-                    '& .MuiMenu-paper': {
-                        backgroundColor: 'rgb(28, 15, 73)',
-                        color: 'white',
-                    },
-                }}>
-                <MenuItem onClick={deleteGame}>
-                    <Delete style={{ marginRight: '5px' }} />
-                    Delete Game
-                </MenuItem>
-            </Menu>
-        );
-    }
 
     return (
         <div className='game'>
@@ -109,15 +64,13 @@ function GameShare() {
                     </div>
 
                     <div className='gameTopRight'>
-                        <IconButton
-                            id='postEditButton'
-                            aria-controls={open ? 'basic-menu' : undefined}
-                            aria-haspopup='true'
-                            aria-expanded={open ? 'true' : undefined}
-                            onClick={handleClick}>
-                            <MoreVert />
-                        </IconButton>
-                        {menu()}
+                        <Tooltip title='Create a Post'>
+                            <span>
+                                <IconButton onClick={setGame}>
+                                    <Close style={{ fontSize: 30 }} />
+                                </IconButton>
+                            </span>
+                        </Tooltip>
                     </div>
                 </div>
 
