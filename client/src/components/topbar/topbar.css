@@ -5,13 +5,15 @@
     box-shadow: 0px 4px 50px 10px rgba(0, 0, 0, 0.25);
     display: flex;
     align-items: center;
+    /* gap: 200px; */
+    justify-content: space-between;
     position: sticky;
     top: 0;
     z-index: 1;
 }
 
 .topbarLeft {
-    flex: 3;
+    flex: 1;
 }
 
 .logo {
@@ -23,26 +25,37 @@
 }
 
 .topbarCenter {
-    flex: 5;
+    flex: 3;
+}
+
+.searchbarWrapper {
+    width: 100%;
+    justify-content: center;
 }
 
 .searchbar {
-    width: 100%;
+    width: 70%;
     height: 30px;
-    background-color: white;
+    background-color: rgb(46, 36, 80);
     border-radius: 30px;
-    display: flex;
-    align-items: center;
+}
+
+.addIcon {
+    font-size: 20px !important;
+    margin-left: 10px;
+    margin-right: 5px;
 }
 
 .searchIcon {
+    margin: 10px;
     font-size: 20px !important;
-    margin-left: 10px;
 }
 
 .searchInput {
     border: none;
-    width: 95%;
+    width: 90%;
+    background-color: rgb(46, 36, 80);
+    font-size: 15px;
 }
 
 .searchInput:focus {
@@ -50,11 +63,12 @@
 }
 
 .topbarRight {
-    flex: 4;
+    flex: 1;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: right;
     color: white;
+    margin-right: 30px;
 }
 
 .topbarLink {
@@ -92,4 +106,13 @@
     width: 32px;
     height: 32px;
     cursor: pointer;
+}
+
+#searchAlertWarning {
+    background-color: rgba(254, 118, 118, 0.3);
+    border: 1px solid rgba(254, 118, 118, 0.8);
+    border-radius: 10px;
+    margin-bottom: 0px;
+    visibility: hidden;
+    height: 0;
 }
