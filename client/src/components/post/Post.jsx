@@ -10,8 +10,9 @@ import {
 import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import { AuthContext } from '../../context/AuthContext';
 import { useContext, useEffect, useState } from 'react';
+import { checkLocation, checkLike } from '../../postHandlers';
+import { Link } from 'react-router-dom';
 import Comments from '../comments/Comments';
-import { Link, redirect } from 'react-router-dom';
 import { format } from 'timeago.js';
 import axios from 'axios';
 import './post.css';
@@ -47,27 +48,6 @@ export default function Post({ post }) {
         setLike(isLiked ? like - 1 : like + 1);
         setIsLiked(!isLiked);
     };
-
-    function checkLocation() {
-        if (post.location !== null) {
-            return (
-                <>
-                    <span>
-                        <Room />
-                    </span>
-                    <span className='postText'>{post?.location}</span>
-                </>
-            );
-        }
-    }
-
-    function checkLike() {
-        if (!isLiked) {
-            return <FavoriteBorder />;
-        } else {
-            return <Favorite style={{ fill: 'rgb(246, 76, 114)' }} />;
-        }
-    }
 
     function checkMenuOptions() {
         if (post.userId === currentUser._id) {
@@ -202,12 +182,12 @@ export default function Post({ post }) {
                 </div>
 
                 <div className='postBottom flex-align'>
-                    <div className='postBottomLeft flex-align'>{checkLocation()}</div>
+                    <div className='postBottomLeft flex-align'>{checkLocation(post)}</div>
 
                     <div className='postBottomRight flex-align'>
                         <Tooltip title='Like'>
                             <span>
-                                <IconButton onClick={likeHandler}>{checkLike()}</IconButton>
+                                <IconButton onClick={likeHandler}>{checkLike(isLiked)}</IconButton>
                             </span>
                         </Tooltip>
                         <span className='postLikeCounter'>{like}</span>

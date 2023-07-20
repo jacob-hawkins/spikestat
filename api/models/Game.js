@@ -29,6 +29,10 @@ const GameSchema = new mongoose.Schema(
         location: {
             type: String,
         },
+        likes: {
+            type: Array,
+            default: [],
+        },
     },
     { timestamps: true }
 );

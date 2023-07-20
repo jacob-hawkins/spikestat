@@ -40,4 +40,23 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+// like a game
+router.put('/:id/like', async (req, res) => {
+    try {
+        const game = await Game.findById(req.params.id);
+
+        // if user is not in likes array, can like
+        if (!game.likes.includes(req.body.userId)) {
+            await game.updateOne({ $push: { likes: req.body.userId } });
+            res.status(200).json('The game has been liked');
+        } else {
+            // if user is in likes array, can unlike
+            await game.updateOne({ $pull: { likes: req.body.userId } });
+            res.status(200).json('The game has been disliked');
+        }
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 module.exports = router;

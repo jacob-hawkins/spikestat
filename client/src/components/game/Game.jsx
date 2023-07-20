@@ -1,11 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
 import { AccountCircle, Delete, MoreVert } from '@mui/icons-material';
-import './game.css';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
+import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import { AuthContext } from '../../context/AuthContext';
+import { checkLocation, checkLike } from '../../postHandlers';
+import { Link } from 'react-router-dom';
 import { format } from 'timeago.js';
-import { IconButton, Menu, MenuItem } from '@mui/material';
+import axios from 'axios';
+import './game.css';
 
 function Game({ post }) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -14,13 +15,8 @@ function Game({ post }) {
     const [opposing1, setOpposing1] = useState({});
     const [opposing2, setOpposing2] = useState({});
     const { user: currentUser } = useContext(AuthContext);
-    // const [teammateExist, setTeammateExist] = useState(null);
-    // const [opposing1Exist, setOpposing1Exist] = useState(null);
-    // const [opposing2Exist, setOpposing2Exist] = useState(null);
-
-    // let teammateExist = false;
-    // let opposing1Exist = false;
-    // let opposing2Exist = false;
+    const [like, setLike] = useState(post.likes.length);
+    const [isLiked, setIsLiked] = useState(false);
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -34,9 +30,9 @@ function Game({ post }) {
         setAnchorEl(null);
     };
 
-    const deletePost = async () => {
+    const deleteGame = async () => {
         try {
-            await axios.delete(`/posts/${post._id}`, { data: { userId: currentUser._id } });
+            await axios.delete(`/game/${post._id}`, { data: { userId: currentUser._id } });
             window.location.reload();
         } catch (err) {}
     };
@@ -67,10 +63,9 @@ function Game({ post }) {
                             color: 'white',
                         },
                     }}>
-                    {/* <MenuItem onClick={handleClose}>Edit Post</MenuItem> */}
-                    <MenuItem onClick={deletePost}>
+                    <MenuItem onClick={deleteGame}>
                         <Delete style={{ marginRight: '5px' }} />
-                        Delete Post
+                        Delete Game
                     </MenuItem>
                 </Menu>
             );
@@ -110,6 +105,17 @@ function Game({ post }) {
         }
     }
 
+    // likes
+    const likeHandler = () => {
+        try {
+            axios.put('/game/' + post._id + '/like', { userId: currentUser._id });
+        } catch (err) {}
+
+        setLike(isLiked ? like - 1 : like + 1);
+        setIsLiked(!isLiked);
+    };
+
+    // get users
     useEffect(() => {
         (async () => {
             const res = await axios.get(`/users?userId=${post.userId}`);
@@ -254,16 +260,27 @@ function Game({ post }) {
                                 {opposing1 && opposing1.username !== null
                                     ? exists(opposing1)
                                     : noUser(post.opposingTeam[0])}
-                                {/* {noUser(post.opposingTeam[0])} */}
                             </div>
 
                             <div className='player flex-align'>
                                 {opposing2 && opposing2.username !== null
                                     ? exists(opposing2)
                                     : noUser(post.opposingTeam[1])}
-                                {/* {noUser(post.opposingTeam[1])} */}
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <div className='gameBottom flex-align'>
+                    <div className='gameBottomLeft flex-align'>{checkLocation(post)}</div>
+
+                    <div className='gameBottomRight flex-align'>
+                        <Tooltip title='Like'>
+                            <span>
+                                <IconButton onClick={likeHandler}>{checkLike(isLiked)}</IconButton>
+                            </span>
+                        </Tooltip>
+                        <span className='gameLikeCounter'>{like}</span>
                     </div>
                 </div>
             </div>
