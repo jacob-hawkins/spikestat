@@ -5,6 +5,7 @@ import Share from '../share/Share';
 import axios from 'axios';
 import './feed.css';
 import Game from '../game/Game';
+import GameShare from '../gameShare/GameShare';
 
 export default function Feed({ username }) {
     const [posts, setPosts] = useState([]);
@@ -28,7 +29,8 @@ export default function Feed({ username }) {
             <div className='feedWrapper'>
                 {(!username || username === user.username) && (
                     <>
-                        <Share />
+                        {/* <Share /> */}
+                        <GameShare />
                         <hr className='feedHr' />
                     </>
                 )}

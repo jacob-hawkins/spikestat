@@ -12,10 +12,12 @@ const GameSchema = new mongoose.Schema(
         },
         score: {
             type: String,
+            default: '0',
             required: true,
         },
         opposingScore: {
             type: String,
+            default: '0',
             required: true,
         },
         teammate: {

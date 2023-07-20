@@ -11,8 +11,6 @@ export default function Sidebar() {
     const { user } = useContext(AuthContext);
     const [friends, setFriends] = useState([]);
 
-    console.log(user);
-
     var options = { year: 'numeric', month: 'long', day: 'numeric' };
     let birthday = new Date(user.createdAt).toLocaleDateString('en-US', options);
 

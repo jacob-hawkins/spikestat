@@ -12,7 +12,6 @@ export default function Share() {
     const desc = useRef();
     const location = useRef();
     let locationOpen = false;
-    let disabled = true;
     const [open, setOpen] = useState(true);
 
     const submitHandler = async (e) => {

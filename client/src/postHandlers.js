@@ -5,7 +5,7 @@ export const checkLocation = (post) => {
         return (
             <>
                 <span>
-                    <Room />
+                    <Room style={{ marginRight: '5px' }} />
                 </span>
                 <span className='postText'>{post?.location}</span>
             </>

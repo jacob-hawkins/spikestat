@@ -1,0 +1,40 @@
+.shareScore {
+    height: 200px;
+    width: 200px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 15px;
+    font-size: 100px;
+    text-align: center;
+}
+
+.shareScore:focus {
+    outline: none;
+}
+
+.gameShareScore {
+    margin-bottom: 20px;
+}
+
+.gameShareTeam {
+    gap: 10px;
+}
+
+.gameShareInput {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 15px;
+}
+
+.gameShareInput:focus {
+    outline: none;
+}
+
+.gameShareBottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 25px;
+}
