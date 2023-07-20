@@ -83,14 +83,6 @@ export default function Share(props) {
                             </span>
                         </Tooltip>
 
-                        <Tooltip title='Schedule a Game'>
-                            <span>
-                                <IconButton>
-                                    <Event style={{ fontSize: 30 }} />
-                                </IconButton>
-                            </span>
-                        </Tooltip>
-
                         <Tooltip title='Tag a Location'>
                             <span>
                                 <IconButton onClick={showLocation}>
@@ -102,7 +94,7 @@ export default function Share(props) {
                         <input
                             type='text'
                             id='shareLocationInput'
-                            placeholder='Location'
+                            placeholder='Location (optional)'
                             ref={location}
                         />
                     </div>
