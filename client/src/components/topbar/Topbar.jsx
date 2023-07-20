@@ -1,9 +1,27 @@
 import './topbar.css';
-import { Search, Person, Chat, Notifications, Add, Close } from '@mui/icons-material';
+import {
+    Search,
+    Person,
+    Chat,
+    Notifications,
+    Add,
+    Close,
+    AccountCircle,
+    Logout,
+} from '@mui/icons-material';
 import { useContext, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
-import { Alert, AlertTitle, Collapse, IconButton, Tooltip } from '@mui/material';
+import {
+    Alert,
+    AlertTitle,
+    Button,
+    Collapse,
+    IconButton,
+    Menu,
+    MenuItem,
+    Tooltip,
+} from '@mui/material';
 import axios from 'axios';
 
 export default function Topbar() {
@@ -12,6 +30,18 @@ export default function Topbar() {
     const navigate = useNavigate();
     const [open, setOpen] = useState(true);
     const search = useRef();
+    const [context, setContext] = useState(AuthContext);
+
+    const [anchorEl, setAnchorEl] = useState(null);
+    const openMenu = Boolean(anchorEl);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     const searchForUser = () => {
         console.log('called');
@@ -29,6 +59,15 @@ export default function Topbar() {
                 }
             } catch (err) {}
         })();
+    };
+
+    const logout = () => {
+        setContext({
+            user: false,
+            isFetching: false,
+            error: false,
+        });
+        window.location.reload(false);
     };
 
     return (
@@ -61,7 +100,12 @@ export default function Topbar() {
                 </div>
 
                 <div className='topbarRight'>
-                    <Link to={`/profile/${user.username}`}>
+                    {/* <Link to={`/profile/${user.username}`}> */}
+                    <Button
+                        aria-controls={open ? 'basic-menu' : undefined}
+                        aria-haspopup='true'
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={handleClick}>
                         <img
                             src={
                                 user.profilePicture
@@ -71,9 +115,40 @@ export default function Topbar() {
                             alt=''
                             className='topbarImg profile-pic'
                         />
-                    </Link>
+                    </Button>
+                    {/* </Link> */}
                 </div>
+
+                {/* MENU */}
+                <Menu
+                    id='basic-menu'
+                    anchorEl={anchorEl}
+                    open={openMenu}
+                    onClose={handleClose}
+                    MenuListProps={{
+                        'aria-labelledby': 'basic-button',
+                    }}
+                    sx={{
+                        mt: '1px',
+                        '& .MuiMenu-paper': {
+                            backgroundColor: 'rgb(28, 15, 73)',
+                            color: 'white',
+                        },
+                    }}>
+                    <Link to={`/profile/${user.username}`} style={{ textDecoration: 'none' }}>
+                        <MenuItem>
+                            <AccountCircle style={{ marginRight: '5px' }} />
+                            See Profile
+                        </MenuItem>
+                    </Link>
+                    <MenuItem onClick={logout}>
+                        <Logout style={{ marginRight: '5px' }} />
+                        Logout
+                    </MenuItem>
+                </Menu>
             </div>
+
+            {/* ALERT */}
             <Collapse in={open}>
                 <Alert
                     id='searchAlertWarning'

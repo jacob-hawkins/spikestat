@@ -126,11 +126,6 @@ export default function Post({ post }) {
         } catch (err) {}
     };
 
-    // function goToUserPage() {
-    //     return redirect('/profile/' + user.username);
-    //     // redirect(`/profile/${user.username}`);
-    // }
-
     return (
         <div className='post'>
             <div className='postWrapper'>
