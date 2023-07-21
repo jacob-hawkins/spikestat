@@ -235,7 +235,8 @@ function Game({ post }) {
                 <div className='gameScoreWrapper flex-align'>
                     <div className='gameScore flex-align'>
                         <h1 className='score'>{post.score}</h1>
-                        <h1 id='gameVs'>vs</h1>
+                        {/* <h1 id='gameVs'>vs</h1> */}
+                        <div className='vertLine'></div>
                         <h1 className='score'>{post.opposingScore}</h1>
                     </div>
                 </div>
@@ -253,7 +254,8 @@ function Game({ post }) {
                             </div>
                         </div>
 
-                        <div className='vertLine'></div>
+                        {/* <div className='vertLine'></div> */}
+                        <h1 id='gameVs'>vs</h1>
 
                         <div className='gameTeam'>
                             <div className='player flex-align'>

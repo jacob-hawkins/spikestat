@@ -176,7 +176,7 @@ export default function Rightbar({ user }) {
                     </div>
 
                     <div className='rightbarInfoItem'>
-                        <span className='rightbarInfoKey'>Loses:</span>
+                        <span className='rightbarInfoKey'>Losses:</span>
                         <span className='rightbarInfoValue'>{user.gamesPlayed - user.wins}</span>
                     </div>
                 </div>

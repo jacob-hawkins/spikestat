@@ -83,7 +83,9 @@ function GameShare(props) {
                             ref={score}
                             className='shareScore'
                         />
-                        <h1 id='gameVs'>vs</h1>
+                        {/* <h1 id='gameVs'>vs</h1> */}
+                        <div className='vertLine'></div>
+
                         <input
                             type='text'
                             placeholder={'0'}
@@ -120,7 +122,8 @@ function GameShare(props) {
                             </div>
                         </div>
 
-                        <div className='vertLine'></div>
+                        {/* <div className='vertLine'></div> */}
+                        <h1 id='gameVs'>vs</h1>
 
                         <div className='gameTeam gameShareTeam'>
                             <div className='player flex-align'>
