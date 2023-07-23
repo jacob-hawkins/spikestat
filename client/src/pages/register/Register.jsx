@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
 import axios from 'axios';
 import './register.css';
@@ -35,49 +35,54 @@ export default function Register() {
     return (
         <div className='register flex-align'>
             <div className='registerWrapper'>
-                <div className='registerLeft'>
-                    <h3 className='registerLogo'>Lamasocial</h3>
-                    <span className='registerDesc'>
-                        Connect with friends and the world around you on Lamasocial.
-                    </span>
-                </div>
+                <div className='registerLeft'></div>
 
                 <div className='registerRight'>
-                    <form onSubmit={handleClick} className='registerBox'>
-                        <input
-                            placeholder='Username'
-                            required
-                            ref={username}
-                            className='registerInput'
-                        />
-                        <input
-                            placeholder='Email'
-                            required
-                            ref={email}
-                            type='email'
-                            className='registerInput'
-                        />
-                        <input
-                            placeholder='Password'
-                            required
-                            ref={password}
-                            type='password'
-                            min={6}
-                            className='registerInput'
-                        />
-                        <input
-                            placeholder='Re-Enter Password'
-                            required
-                            ref={password2}
-                            type='password'
-                            min={6}
-                            className='registerInput'
-                        />
-                        <button type='submit' className='registerButton'>
-                            Sign Up
-                        </button>
-                        <button className='registerRegisterButton'>Log into Account</button>
-                    </form>
+                    <h1 className='loginLogo'>SpikeStat</h1>
+
+                    <div className='registerBox'>
+                        <form onSubmit={handleClick} className='registerBox'>
+                            <input
+                                placeholder='Username'
+                                required
+                                ref={username}
+                                className='registerInput'
+                            />
+                            <input
+                                placeholder='Email'
+                                required
+                                ref={email}
+                                type='email'
+                                className='registerInput'
+                            />
+                            <input
+                                placeholder='Password'
+                                required
+                                ref={password}
+                                type='password'
+                                min={6}
+                                className='registerInput'
+                            />
+                            <input
+                                placeholder='Re-Enter Password'
+                                required
+                                ref={password2}
+                                type='password'
+                                min={6}
+                                className='registerInput'
+                            />
+                            <button type='submit' className='registerButton'>
+                                Sign Up
+                            </button>
+                        </form>
+
+                        <div className='loginRegister'>
+                            <span>Already have an account?</span>
+                            <Link to={'/login'} className='loginRegisterLink'>
+                                Log in
+                            </Link>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

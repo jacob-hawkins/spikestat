@@ -1,7 +1,7 @@
 .register {
     width: 100vw;
     height: 100vh;
-    background-color: black;
+    background-color: var(--backgroundColor);
     justify-content: center;
 }
 
@@ -33,7 +33,7 @@
 .registerBox {
     height: 400px;
     padding: 20px;
-    background-color: black;
+    background-color: var(--commentBackgroundColor);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -42,11 +42,11 @@
 
 .registerInput {
     height: 50px;
-    border-radius: 10px;
-    border: 1px solid grey;
-    font-size: 18px;
-    padding-left: 20px;
-    background-color: red;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 5px;
+    padding: 5px 15px 5px 15px;
+    font-size: 15px;
 }
 
 .registerInput:focus {
@@ -57,7 +57,7 @@
     height: 50px;
     border-radius: 10px;
     border: none;
-    background-color: #1775ee;
+    background-color: var(--accentColor);
     color: white;
     font-size: 20px;
     font-weight: 500;
