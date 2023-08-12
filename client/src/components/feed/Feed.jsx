@@ -6,7 +6,7 @@ import axios from 'axios';
 import './feed.css';
 import Game from '../game/Game';
 import GameShare from '../gameShare/GameShare';
-import PostSkeleton from '../PostSkeleton/PostSkeleton';
+import PostSkeleton from '../postSkeleton/PostSkeleton';
 
 export default function Feed({ username }) {
     const [posts, setPosts] = useState([]);

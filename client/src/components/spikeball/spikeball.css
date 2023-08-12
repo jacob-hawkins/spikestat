@@ -1,0 +1,20 @@
+.spikeball {
+    position: absolute;
+    left: -150px;
+
+    overflow: hidden;
+}
+
+#spin {
+    transform-origin: 50% 50%;
+    animation: rotate 10s infinite;
+}
+
+@keyframes rotate {
+    0% {
+        rotate: 0deg;
+    }
+    100% {
+        rotate: 360deg;
+    }
+}

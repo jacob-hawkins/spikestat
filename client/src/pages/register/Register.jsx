@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
 import axios from 'axios';
 import './register.css';
+import Spikeball from '../../components/spikeball/Spikeball';
 
 export default function Register() {
     const username = useRef();
@@ -35,52 +36,56 @@ export default function Register() {
     return (
         <div className='register flex-align'>
             <div className='registerWrapper'>
-                <div className='registerLeft'></div>
+                <div className='registerLeft'>
+                    <Spikeball />
+                </div>
 
-                <div className='registerRight'>
-                    <h1 className='loginLogo'>SpikeStat</h1>
+                <div className='loginRightWrapper'>
+                    <div className='registerRight'>
+                        <h1 className='loginLogo'>SpikeStat</h1>
 
-                    <div className='registerBox'>
-                        <form onSubmit={handleClick} className='registerBox'>
-                            <input
-                                placeholder='Username'
-                                required
-                                ref={username}
-                                className='registerInput'
-                            />
-                            <input
-                                placeholder='Email'
-                                required
-                                ref={email}
-                                type='email'
-                                className='registerInput'
-                            />
-                            <input
-                                placeholder='Password'
-                                required
-                                ref={password}
-                                type='password'
-                                min={6}
-                                className='registerInput'
-                            />
-                            <input
-                                placeholder='Re-Enter Password'
-                                required
-                                ref={password2}
-                                type='password'
-                                min={6}
-                                className='registerInput'
-                            />
-                            <button type='submit' className='registerButton'>
-                                Sign Up
-                            </button>
-                        </form>
+                        <div className='registerBox'>
+                            <form onSubmit={handleClick} className='registerBox'>
+                                <input
+                                    placeholder='Username'
+                                    required
+                                    ref={username}
+                                    className='registerInput'
+                                />
+                                <input
+                                    placeholder='Email'
+                                    required
+                                    ref={email}
+                                    type='email'
+                                    className='registerInput'
+                                />
+                                <input
+                                    placeholder='Password'
+                                    required
+                                    ref={password}
+                                    type='password'
+                                    min={6}
+                                    className='registerInput'
+                                />
+                                <input
+                                    placeholder='Re-Enter Password'
+                                    required
+                                    ref={password2}
+                                    type='password'
+                                    min={6}
+                                    className='registerInput'
+                                />
+                                <button type='submit' className='registerButton'>
+                                    Sign Up
+                                </button>
+                            </form>
 
-                        <div className='loginRegister'>
-                            <span>Already have an account?</span>
-                            <Link to={'/login'} className='loginRegisterLink'>
-                                Log in
-                            </Link>
+                            <div className='loginRegister'>
+                                <span>Already have an account?</span>
+                                <Link to={'/login'} className='loginRegisterLink'>
+                                    Log in
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>

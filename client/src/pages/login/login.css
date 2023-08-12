@@ -3,20 +3,26 @@
     height: 100vh;
     background-color: var(--backgroundColor);
     justify-content: center;
+    overflow: hidden;
 }
 
 .loginWrapper {
-    width: 70%;
-    height: 70%;
+    width: 100%;
+    height: 100%;
     display: flex;
 }
 
 .loginLeft,
-.loginRight {
+.loginRightWrapper {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    overflow: hidden;
+}
+
+.loginRight {
+    width: 80%;
 }
 
 .loginLogo {
