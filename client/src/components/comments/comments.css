@@ -1,4 +1,4 @@
-.comments {
+#comments {
     width: 99%;
     max-height: 250px;
     overflow: auto;
@@ -71,7 +71,7 @@
     justify-content: space-between;
 }
 
-.commentSeeMoreButton {
+#commentSeeMoreButton {
     position: sticky;
     bottom: 0;
     width: 100%;

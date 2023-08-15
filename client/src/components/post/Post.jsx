@@ -127,7 +127,7 @@ export default function Post({ post }) {
     };
 
     return (
-        <div className='post'>
+        <div id='post'>
             <div className='postWrapper'>
                 <div className='postTop flex-align'>
                     <div className='postTopLeft flex-align'>

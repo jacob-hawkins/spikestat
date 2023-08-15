@@ -1,4 +1,4 @@
-import { Button, IconButton, Menu, MenuItem } from '@mui/material';
+import { Backdrop, Button, CircularProgress, IconButton, Menu, MenuItem } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import { Delete, MoreHoriz, Send } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
@@ -9,46 +9,51 @@ export default function Comments({ post, currentUser }) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const comment = useRef();
     const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
+    const [open, setOpen] = useState(false);
+    const menuOpen = Boolean(anchorEl);
+
+    const expandComments = () => {
+        // document.getElementById('post').style.maxHeight = '425px';
+        // document.getElementById('comments').style.maxHeight = '225px';
+        // document.getElementById('comments').style.width = '99%';
+        // document.getElementById('comments').style.overflow = 'auto';
+        // document.getElementById('commentSeeMoreButton').style.width = '0px';
+        // document.getElementById('commentSeeMoreButton').style.height = '0px';
+        // document.getElementById('commentSeeMoreButton').style.visibility = 'hidden';
+        // setOpen(true);
+    };
+
+    const closeComments = () => {
+        // document.getElementById('post').style.maxHeight = '375px';
+        // document.getElementById('comments').style.maxHeight = '190px';
+        // document.getElementById('comments').style.width = '100%';
+        // document.getElementById('comments').style.overflow = 'hidden';
+        // document.getElementById('commentSeeMoreButton').style.width = '100%';
+        // document.getElementById('commentSeeMoreButton').style.height = '50px';
+        // document.getElementById('commentSeeMoreButton').style.visibility = 'visible';
+        // document.getElementById('comments').scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+        // setOpen(false);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+        document.getElementsByTagName('body')[0].style.position = 'fixed';
+    };
+    const handleOpen = () => {
+        setOpen(true);
+    };
 
     useEffect(() => {
         if (post.comments.length >= 3) {
-            document.getElementsByClassName('post')[0].style.maxHeight = '450px';
-            document.getElementsByClassName('comments')[0].style.maxHeight = '250px';
-
+            document.getElementById('post').style.maxHeight = '450px';
+            document.getElementById('comments').style.maxHeight = '250px';
             if (post.comments.length > 3) {
-                document.getElementsByClassName('comments')[0].style.maxHeight = '190px';
-                document.getElementsByClassName('comments')[0].style.width = '100%';
-                document.getElementsByClassName('comments')[0].style.overflow = 'hidden';
+                document.getElementById('comments').style.maxHeight = '190px';
+                document.getElementById('comments').style.width = '100%';
+                document.getElementById('comments').style.overflow = 'hidden';
             }
         }
     }, []);
-
-    function expandComments() {
-        document.getElementsByClassName('post')[0].style.maxHeight = '425px';
-        document.getElementsByClassName('comments')[0].style.maxHeight = '225px';
-        document.getElementsByClassName('comments')[0].style.width = '99%';
-        document.getElementsByClassName('comments')[0].style.overflow = 'auto';
-
-        document.getElementsByClassName('commentSeeMoreButton')[0].style.width = '0px';
-        document.getElementsByClassName('commentSeeMoreButton')[0].style.height = '0px';
-        document.getElementsByClassName('commentSeeMoreButton')[0].style.visibility = 'hidden';
-    }
-
-    function closeComments() {
-        document.getElementsByClassName('post')[0].style.maxHeight = '375px';
-        document.getElementsByClassName('comments')[0].style.maxHeight = '190px';
-        document.getElementsByClassName('comments')[0].style.width = '100%';
-        document.getElementsByClassName('comments')[0].style.overflow = 'hidden';
-
-        document.getElementsByClassName('commentSeeMoreButton')[0].style.width = '100%';
-        document.getElementsByClassName('commentSeeMoreButton')[0].style.height = '50px';
-        document.getElementsByClassName('commentSeeMoreButton')[0].style.visibility = 'visible';
-
-        document
-            .getElementsByClassName('comments')[0]
-            .scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-    }
 
     const checkComments = (post) => {
         if (!(post.comments.length <= 0)) {
@@ -66,7 +71,7 @@ export default function Comments({ post, currentUser }) {
                             </Button>
                         </span>
 
-                        <button className='commentSeeMoreButton' onClick={expandComments}>
+                        <button id='commentSeeMoreButton' onClick={handleOpen}>
                             See More
                         </button>
                     </>
@@ -118,7 +123,7 @@ export default function Comments({ post, currentUser }) {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => {
+    const handleMenuClose = () => {
         setAnchorEl(null);
     };
 
@@ -128,17 +133,17 @@ export default function Comments({ post, currentUser }) {
                 <>
                     <IconButton
                         id='postEditButton'
-                        aria-controls={open ? 'basic-menu' : undefined}
+                        aria-controls={menuOpen ? 'basic-menu' : undefined}
                         aria-haspopup='true'
-                        aria-expanded={open ? 'true' : undefined}
+                        aria-expanded={menuOpen ? 'true' : undefined}
                         onClick={handleClick}>
                         <MoreHoriz />
                     </IconButton>
                     <Menu
                         id='postMenu'
                         anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleClose}
+                        menuOpen={open}
+                        onClose={handleMenuClose}
                         anchorOrigin={{
                             vertical: 'top',
                             horizontal: 'right',
@@ -189,7 +194,7 @@ export default function Comments({ post, currentUser }) {
     };
 
     return (
-        <div className='comments'>
+        <div id='comments'>
             <div className='commentsWrapper'>
                 <div className='commentInputWrapper flex-align'>
                     <img
@@ -214,6 +219,15 @@ export default function Comments({ post, currentUser }) {
                 </div>
 
                 {checkComments(post)}
+
+                {/* <Button onClick={handleOpen}>Show backdrop</Button> */}
+                <Backdrop
+                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                    open={open}
+                    onClick={handleClose}>
+                    <CircularProgress color='inherit' />
+                    {/* <p>{post.postId}</p> */}
+                </Backdrop>
             </div>
         </div>
     );
